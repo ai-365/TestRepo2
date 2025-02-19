@@ -1,25 +1,55 @@
-<button id='open-dir-button'>打开</button>
+<button id='open-dir-button'>打开一个本地目录</button> 
+<br><br>
+
+
+
+<input type="text" id="new-sub-dir-name"><button id="create-sub-dir-button">创建子目录</button>
+<br><br>
+
+<input type="text" id="new-file-name"><button id="create-file-button">创建文件</button>
+<br><br>
+
+
+
+
+<button id="list-dir-button">列举目录中的子项</button> <br>
+<p>目录中的子项目包括：</p>
+<div id="list-result" style="background: gainsboro;padding:15px;"></div>
+
 <script>
+    // dirHandle 是这个本地目录的句柄，非常重要，提升为全局变量
+    let dirHandle 
+
     const openDirButton = document.querySelector('#open-dir-button')
     openDirButton.onclick = async () => {
-        const dirHandle = await window.showDirectoryPicker()
-        // console.log(dirHandle)
-        // const subDirHandle = await dirHandle.getDirectoryHandle('subDir', { create: true })
-        // console.log(subDirHandle)
+        dirHandle = await window.showDirectoryPicker()
+        console.log(dirHandle)
+    }
 
-        // const fileHandle = await dirHandle.getFileHandle('file.txt', { create: true })
-        // console.log(fileHandle) // FileSysteFileHandle对象
+    // 获取子目录句柄，不存在就新建
+    const createSubDirButton = document.querySelector('#create-sub-dir-button')
+
+    createSubDirButton.onclick = async () => {
+        const newSubDirName = document.querySelector('#new-sub-dir-name').value
+        const subDirHandle = await dirHandle.getDirectoryHandle(newSubDirName, { create: true })
+    }
+
+    // 获取文件句柄，不存在就新建
+    const createFileButton = document.querySelector('#create-file-button')
+    createFileButton.onclick = async () => {
+        const newFileName = document.querySelector('#new-file-name').value
+        const fileHandle = await dirHandle.getFileHandle(newFileName, { create: true })
+    }
+
+    const listDirButton = document.querySelector('#list-dir-button')
+    listDirButton.onclick = async () => {
+        // 先清空之前的内容：
+        const listResult = document.querySelector('#list-result')
+        listResult.innerHTML = ''
 
         const entries = await dirHandle.entries()
-       
-        //  const item = entries.next()
-        //  console.log(await item)
-        //  const item2 = entries.next()
-        //  console.log(await item2)
-
-        for await (let [name,handle] of entries){
-            console.log(name,'\n',handle)
+        for await (let [name,handle] of entries) {
+            document.querySelector('#list-result').innerHTML += ` 文件名："${name}" + 文件类型：${handle.kind} <br>` 
         }
-      
     }
 </script>
