@@ -1,0 +1,138 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>锚点定位</title>
+<h1>锚点定位示例</h1>
+<style>
+    /* 基本元素修饰，与锚点定位无关： */
+    .container {
+        width: 500px;
+        height: 200px;
+        border: 1px solid black;
+        position: relative;
+    }
+</style>
+
+
+
+
+<h2>示例1：锚点定位，水平方向上：左对齐；垂直方向上：底部对齐到锚点的顶部</h2>
+<style>
+    .anchor-1 {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: lightblue;
+        margin-left: 100px;
+        margin-top: 100px;
+
+        position: absolute;
+        anchor-name: --anchor-el-1;
+    }
+
+    .anchor-notice-1 {
+        width: fit-content;
+        padding: 10px;
+        border-radius: 10px;
+        background: #DDD;
+
+        position: absolute;
+        position-anchor: --anchor-el-1;
+        left: anchor(left);
+        bottom: anchor(top);
+    }
+</style>
+<div class="container">
+    <div class="anchor anchor-1"></div>
+
+    <div class="anchor-notice anchor-notice-1">
+        我是一个需要借助锚点定位的元素
+    </div>
+</div>
+
+
+
+
+
+<br />
+<br />
+<br />
+<br />
+
+<h2>示例2：锚点定位，垂直方向上：底部对齐到锚点的顶部；水平方向上：居中</h2>
+<div class="container">
+    <style>
+        .anchor-2 {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: lightblue;
+            margin-left: 150px;
+            margin-top: 100px;
+
+            position: absolute;
+            anchor-name: --anchor-el-2;
+        }
+
+        .anchor-notice-2 {
+            width: fit-content;
+            padding: 10px;
+            border-radius: 10px;
+            background: #DDD;
+
+            position: absolute;
+            position-anchor: --anchor-el-2;
+            bottom: anchor(top);
+            justify-self: anchor-center;
+        }
+    </style>
+    <div class="anchor-2"></div>
+
+    <div class="anchor-notice-2">
+        我是一个需要借助锚点定位的元素
+    </div>
+</div>
+
+
+
+
+
+<br />
+<br />
+<br />
+<br />
+
+<h2>示例3：锚点定位，水平方向上：左边对齐到锚点的右边；垂直方向上：居中</h2>
+<div class="container">
+    <style>
+        /* 锚点定位需要的关键属性： */
+
+        .anchor-3 {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: lightblue;
+            margin-left: 150px;
+            margin-top: 100px;
+
+            position: absolute;
+            anchor-name: --anchor-el-3;
+        }
+
+        .anchored-notice-3 {
+            width: fit-content;
+            padding: 10px;
+            border-radius: 10px;
+            background: #DDD;
+
+            position: absolute;
+            position-anchor: --anchor-el-3;
+            left: anchor(right);
+            align-self: anchor-center;
+        }
+    </style>
+    <div class="anchor anchor-3"></div>
+
+    <div class="anchored-notice anchored-notice-3">
+        我是一个需要借助锚点定位的元素
+    </div>
+</div>

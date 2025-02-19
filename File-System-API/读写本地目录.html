@@ -1,0 +1,25 @@
+<button id='open-dir-button'>打开</button>
+<script>
+    const openDirButton = document.querySelector('#open-dir-button')
+    openDirButton.onclick = async () => {
+        const dirHandle = await window.showDirectoryPicker()
+        // console.log(dirHandle)
+        // const subDirHandle = await dirHandle.getDirectoryHandle('subDir', { create: true })
+        // console.log(subDirHandle)
+
+        // const fileHandle = await dirHandle.getFileHandle('file.txt', { create: true })
+        // console.log(fileHandle) // FileSysteFileHandle对象
+
+        const entries = await dirHandle.entries()
+       
+        //  const item = entries.next()
+        //  console.log(await item)
+        //  const item2 = entries.next()
+        //  console.log(await item2)
+
+        for await (let [name,handle] of entries){
+            console.log(name,'\n',handle)
+        }
+      
+    }
+</script>

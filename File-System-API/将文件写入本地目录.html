@@ -1,0 +1,36 @@
+<h1>将文件写入本地</h1>
+<button id="butOpen">打开目录</button> <br>
+<textarea name="input-area" id="input-area"></textarea>
+<button id="update-content">更新内容</button>
+<div id="file-content"></div>
+<!-- <iframe src=""></iframe> -->
+<script>
+    const butOpenDir = document.querySelector('#butOpen')
+    const updateContent = document.querySelector('#update-content')
+    const inputArea = document.querySelector('#input-area')
+    const fileContent = document.querySelector('#file-content')
+    let fileHandle;
+    butOpenDir.addEventListener('click', async () => {
+        const dirHandle = await window.showDirectoryPicker();
+       
+        // 创建新文件
+        const newFileHandle = await dirHandle.getFileHandle('测试页面.html', { create: true })
+
+        inputArea.oninput = async () => {
+            // 基于该文件创建写入流
+            const writable = await newFileHandle.createWritable()
+            // 写入内容
+            writable.write(inputArea.value)
+            writable.close()
+
+
+
+        }
+
+        setInterval(async () => {
+            const file = await newFileHandle.getFile()
+            fileContent.textContent = await file.text()
+        },1000)
+
+    });
+</script>
