@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件系统File System API</title>
+</head>
+<body>
+    <h1>文件系统File System API</h1>
+    文件系统File System API使得网页可以直接读取本地文件，但是前提是必须通过交互来获得权限，比如通过按钮弹出文件或目录选择窗口。
+    <h2>最关键的概念</h2>
+    最关键的概念就是一个类型：FileSystemHandler，文件系统句柄，包括两个子类： FileSystemDirectoryHandler、FileSystemFileHandler，分别对应目录和文件。
+    <br><br>
+    要读写目录，就要首先拿到FileSystemDirectoryHandler目录句柄，包括本地硬盘上的某个文件夹，或者源私有文件系统的根目录。
+    <br><br>
+    另外，子目录也是FileSystemDirectoryHandler对象。
+    <br><br>
+    要读写文件，也要首先拿到FileSystemFileHandler文件句柄。
+    <br><br>
+    然后，读文件用getFile()获取文件对象、进而text()获取文本内容。
+    <br><br>
+    写文件用writable得到一个可写流，进而write()覆写文件。
+</body>
+</html>
